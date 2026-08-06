@@ -1,0 +1,111 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+
+    "logo": {
+        "type": "kitty-direct",
+        "source": "/home/3ty6six7/Pictures/IMG_5270.png",
+        "width": 26,
+        "padding": {
+            "top": 0,
+            "right": 3
+        }
+    },
+
+    "display": {
+        "separator": "  ",
+
+        "color": {
+            "keys": "#ff4a24",
+            "title": "#ff3200",
+            "output": "#d8d8d8",
+            "separator": "#773628"
+        },
+
+        "key": {
+            "width": 10,
+            "type": "string"
+        },
+
+        "bar": {
+            "char": {
+                "elapsed": "━",
+                "total": "─"
+            },
+            "width": 10,
+            "border": {
+                "left": "",
+                "right": ""
+            }
+        },
+
+        "percent": {
+            "type": 2,
+            "ndigits": 0
+        }
+    },
+
+    "modules": [
+        {
+            "type": "custom",
+            "format": "╭──── 3TY6SIX7 // VAIO ──────╮",
+            "outputColor": "#ff3200"
+        },
+
+        {
+            "type": "title",
+            "key": " USER",
+            "format": "{user-name}@{host-name}"
+        },
+
+        "break",
+
+        {
+            "type": "os",
+            "key": "󰣇 OS",
+            "format": "{name}"
+        },
+        {
+            "type": "kernel",
+            "key": " KERNEL",
+            "format": "{release}"
+        },
+        {
+            "type": "wm",
+            "key": " WM",
+            "format": "{pretty-name}"
+        },
+        {
+            "type": "uptime",
+            "key": "󰔚 UPTIME"
+        },
+
+        {
+            "type": "custom",
+            "format": "├───────────────────────────",
+            "outputColor": "#773628"
+        },
+
+        {
+            "type": "cpu",
+            "key": " CPU",
+            "format": "Intel Core i3-2350M"
+        },
+        {
+            "type": "memory",
+            "key": "󰍛 RAM",
+            "format": "{used} / {total}"
+        },
+        {
+            "type": "disk",
+            "key": "󰋊 DISK",
+            "folders": "/",
+            "format": "{size-total}"
+        },
+
+        {
+            "type": "custom",
+            "format": "╰──── ARCH • HYPRLAND ───────╯",
+            "outputColor": "#ff3200"
+        }
+    ]
+}
