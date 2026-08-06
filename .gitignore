@@ -1,0 +1,8 @@
+*.log
+*.cache
+*.bak
+*.swp
+*~
+.cache/
+__pycache__/
+secrets/
