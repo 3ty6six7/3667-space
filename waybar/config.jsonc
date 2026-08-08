@@ -1,108 +1,223 @@
 {
     "layer": "top",
-    "modules-left": ["hyprland/workspaces", "group/media"],
-    "modules-center": ["clock"],
-    "modules-right": ["hyprland/submap", "group/volume", "battery", "bluetooth", "network", "cpu", "memory"],
-    "hyprland/window": {
-        "max-length": 50
+    "position": "top",
+
+    "height": 36,
+    "spacing": 0,
+
+    "modules-left": [
+        "hyprland/workspaces",
+        "mpris"
+    ],
+
+    "modules-center": [
+        "clock"
+    ],
+
+    "modules-right": [
+        "hyprland/submap",
+        "group/volume",
+        "group/status"
+    ],
+
+
+    // =========================================================
+    // WORKSPACES
+    // =========================================================
+
+    "hyprland/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": false,
+        "warp-on-scroll": false,
+
+        "format": "{name}"
     },
-    "battery": {
-        "interval": 60,
-        "format": "{capacity}% {icon}",
-        "format-icons": {
-            "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
-            "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
-        }
+
+
+    // =========================================================
+    // SUBMAP
+    // =========================================================
+
+    "hyprland/submap": {
+        "format": "{}",
+        "tooltip": false
     },
-    "bluetooth": {
-      "format": "",
-      "format-disabled": "", // an empty format will hide the module
-      "format-connected": " {num_connections}",
-      "tooltip-format": "{controller_alias}\t{controller_address}",
-      "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{device_enumerate}",
-      "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-      "on-click": "exec ghostty --title=bluetui -e bluetui"
-    },
-    "cpu": {
-        "interval": 10,
-        "format": " {}%",
-        "max-length": 10,
-        "on-click": "exec ghostty --title=btop -e btop"
-    },
-    "memory": {
-        "interval": 30,
-        "format": " {percentage}%",
-        "tooltip-format": "{used:0.1f}G/{total:0.1f}G used",
-        "on-click": "exec ghostty --title=htop -e htop"
-    },
-    "network": {
-        "format": "",
-        "format-wifi": "",
-        "format-ethernet": "",
-        "format-disconnected": "󰤭", //An empty format will hide the module.
-        "tooltip-format": "{ifname} via {gwaddr} 󰊗",
-        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
-        "tooltip-format-ethernet": "{ifname} ",
-        "tooltip-format-disconnected": "󰖪",
-        "max-length": 50,
-        "on-click": "exec nmrs"
-    },
+
+
+    // =========================================================
+    // CLOCK
+    // =========================================================
+
     "clock": {
-      "format": "󰥔 {:%a, %d. %b %I:%M %p}",
-      "tooltip-format": "<tt><small>{calendar}</small></tt>",
-      "calendar": {
-        "format": {
-          "today": "<span color='#75f1fa'><b>{}</b></span>"
-        }
-      },
-      "on-click": "exec chromium --app=https://calendar.google.com"
+        "interval": 1,
+
+        "format": "󰥔 {:%a, %d. %b %I:%M %p}",
+
+        "tooltip-format": "{calendar}",
+
+        "calendar": {
+            "format": {
+                "today": "<b>{}</b>"
+            }
+        },
+
+        "on-click": "chromium --app=https://calendar.google.com"
     },
+
+
+    // =========================================================
+    // VOLUME
+    // =========================================================
+
+    "group/volume": {
+        "orientation": "horizontal",
+
+        "modules": [
+            "pulseaudio",
+            "pulseaudio/slider"
+        ]
+    },
+
+
     "pulseaudio": {
         "format": "{volume}% {icon}",
+
         "format-muted": "",
+
         "format-icons": {
-            "default": ["", ""]
+            "default": [
+                "",
+                ""
+            ]
         },
+
         "scroll-step": 1,
-        "ignored-sinks": ["Easy Effects Sink"],
-        "on-click": "pavucontrol"
+
+        "ignored-sinks": [
+            "Easy Effects Sink"
+        ],
+
+        "on-click": "pavucontrol",
+
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
     },
+
+
     "pulseaudio/slider": {
         "min": 0,
         "max": 100,
+
         "orientation": "horizontal"
     },
-    "group/volume": {
-      "orientation": "horizontal",
-      "modules": [
-        "pulseaudio",
-        "pulseaudio/slider"
-      ]
+
+
+    // =========================================================
+    // STATUS GROUP
+    // =========================================================
+
+    "group/status": {
+        "orientation": "horizontal",
+
+        "modules": [
+            "battery",
+            "bluetooth",
+            "network"
+        ]
     },
-    "group/media": {
-      "orientation": "horizontal",
-      "modules": [
-        "custom/media-animation",
-        "custom/media-now-playing",
-        "custom/media-time"
-      ]
+
+
+    // =========================================================
+    // BATTERY
+    // =========================================================
+
+    "battery": {
+        "interval": 60,
+
+        "states": {
+            "warning": 25,
+            "critical": 15
+        },
+
+        "format": "{capacity}% {icon}",
+
+        "format-charging": "{capacity}% 󰂄",
+
+        "format-plugged": "{capacity}% 󰂄",
+
+        "format-icons": [
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ]
     },
-    "custom/media-now-playing": {
-      "exec": "~/.config/waybar/custom_modules/media/media-now-playing.sh",
-      "escape": true,
-      "tooltip": false,
-      "on-click": "playerctl play-pause",
-      "on-click-middle": "playerctl previous",
-      "on-click-right": "playerctl next"
+
+
+    // =========================================================
+    // BLUETOOTH
+    // =========================================================
+
+    "bluetooth": {
+        "format": "",
+
+        "format-disabled": "",
+
+        "format-connected": "",
+
+        "tooltip-format": "{controller_alias}",
+
+        "tooltip-format-connected": "{device_enumerate}",
+
+        "tooltip-format-enumerate-connected": "{device_alias}",
+
+        "on-click": "ghostty --title=bluetui -e bluetui"
     },
-    "custom/media-animation": {
-      "exec": "~/.config/waybar/custom_modules/media/media-animation.sh",
-      "tooltip": false
+
+
+    // =========================================================
+    // NETWORK
+    // =========================================================
+
+    "network": {
+        "format": "",
+
+        "format-wifi": "",
+
+        "format-ethernet": "",
+
+        "format-disconnected": "󰤭",
+
+        "tooltip-format-wifi": "{essid}\nSignal: {signalStrength}%",
+
+        "tooltip-format-ethernet": "{ifname}\n{ipaddr}",
+
+        "tooltip-format-disconnected": "Disconnected",
+
+        "on-click": "nmrs"
     },
-    "custom/media-time": {
-      "exec": "~/.config/waybar/custom_modules/media/media-time.sh",
-      "escape": true,
-      "interval": 1,
-      "tooltip": false
+
+
+    // =========================================================
+    // MEDIA
+    // =========================================================
+
+    "mpris": {
+        "format": "  {artist} — {title}",
+        "format-paused": "  {artist} — {title}",
+
+        "max-length": 42,
+
+        "tooltip": true,
+        "tooltip-format": "{artist} — {title}",
+
+        "on-click": "playerctl play-pause",
+        "on-click-middle": "playerctl previous",
+        "on-click-right": "playerctl next"
     }
 }

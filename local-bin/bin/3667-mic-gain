@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Đợi PipeWire + USB mic xuất hiện
+for _ in {1..40}; do
+    SRC="$(pactl list short sources | awk '$2 ~ /^alsa_input\.usb-/ {print $2; exit}')"
+
+    if [[ -n "$SRC" ]]; then
+        pactl set-default-source "$SRC"
+        pactl set-source-mute "$SRC" 0
+        pactl set-source-volume "$SRC" 200%
+        exit 0
+    fi
+
+    sleep 0.25
+done
+
+exit 1

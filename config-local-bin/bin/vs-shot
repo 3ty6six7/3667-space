@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+dir="$HOME/Pictures/Screenshots"
+mkdir -p "$dir"
+
+file="$dir/$(date '+%Y-%m-%d_%H-%M-%S').png"
+mode="${1:-area}"
+
+case "$mode" in
+    full)
+        grim "$file"
+        wl-copy < "$file"
+        notify-send \
+            -a "vs-shot" \
+            -i "$file" \
+            "Screenshot Saved" \
+            "Copied to clipboard."
+        ;;
+
+    area)
+        geometry="$(slurp -d)" || exit 0
+        grim -g "$geometry" "$file"
+        wl-copy < "$file"
+        notify-send \
+            -a "vs-shot" \
+            -i "$file" \
+            "Screenshot Saved" \
+            "Copied to clipboard."
+        ;;
+
+    edit)
+        geometry="$(slurp -d)" || exit 0
+        grim -g "$geometry" - | swappy -f - -o "$file"
+
+        if [[ -f "$file" ]]; then
+            wl-copy < "$file"
+            notify-send \
+            -a "vs-shot" \
+            -i "$file" \
+            "Screenshot Saved" \
+            "Copied to clipboard."
+        fi
+        ;;
+
+    *)
+        echo "Usage: vs-shot {full|area|edit}" >&2
+        exit 1
+        ;;
+esac

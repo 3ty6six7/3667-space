@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PREFIX="$HOME/Games/hoyoplay"
+PROTON="$HOME/.local/share/Steam/steamapps/common/Proton 10.0"
+LAUNCHER="$PREFIX/drive_c/Program Files/HoYoPlay/launcher.exe"
+
+if [[ ! -x "$PROTON/proton" ]]; then
+    notify-send -u critical "HoYoPlay" "Không tìm thấy Proton 10.0"
+    exit 1
+fi
+
+if [[ ! -f "$LAUNCHER" ]]; then
+    notify-send -u critical "HoYoPlay" "Không tìm thấy launcher.exe"
+    exit 1
+fi
+
+# Không mở phiên thứ hai nếu launcher/game đang chạy
+if pgrep -u "$UID" -f 'GenshinImpact\.exe|launcher\.exe' >/dev/null; then
+    notify-send "HoYoPlay" "HoYoPlay hoặc Genshin đang chạy rồi."
+    exit 0
+fi
+
+# Dọn Wine session cũ còn núp dưới system tray
+WINEPREFIX="$PREFIX" \
+    "$PROTON/files/bin/wineserver" -k 2>/dev/null || true
+
+sleep 1
+
+exec env \
+    WINEPREFIX="$PREFIX" \
+    GAMEID=umu-default \
+    STORE=none \
+    PROTONPATH="$PROTON" \
+    umu-run "$LAUNCHER"

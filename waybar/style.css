@@ -1,107 +1,379 @@
-@define-color highlight rgba(255, 50, 0, 0.85);
-@define-color dark-9 rgba(27, 24, 24, 0.2);
-@define-color dark-8 rgba(42, 39, 39, 0.5);
-@define-color dark-7 rgba(70, 63, 63, 1);
-@define-color dark-6 rgba(91, 82, 82, 1);
-@define-color dark-5 rgba(122, 113, 113, 1);
+/* ============================================================
+   3667 SPACE
+   WAYBAR V2 — TRANSPARENT ISLANDS
+   ============================================================ */
+
+
+/* ============================================================
+   COLORS
+   ============================================================ */
+
+@define-color highlight rgba(255, 50, 0, 0.90);
+
+@define-color foreground rgba(255, 255, 255, 0.94);
+@define-color foreground-muted rgba(255, 255, 255, 0.52);
+
+@define-color island-bg rgba(15, 15, 15, 0.26);
+
+@define-color island-border rgba(255, 255, 255, 0.12);
+@define-color island-border-hover rgba(255, 255, 255, 0.22);
+
+@define-color hover-bg rgba(255, 255, 255, 0.08);
+
+@define-color slider-bg rgba(110, 100, 100, 0.48);
+
+@define-color warning rgb(255, 181, 71);
+@define-color critical rgb(255, 75, 75);
+@define-color charging rgb(108, 255, 154);
+
+
+/* ============================================================
+   GLOBAL
+   ============================================================ */
 
 * {
-  /* `otf-font-awesome` is required to be installed for icons */
-  font-family: JetBrainsMono Nerd Font Propo;
-  font-size:12px;
+    font-family: "JetBrainsMono Nerd Font Propo";
+
+    font-size: 12px;
+
+    border: none;
+
+    min-height: 0;
 }
+
+
+/* ============================================================
+   WAYBAR
+   ============================================================ */
 
 window#waybar {
-  background-color: @dark-9;
-  color: white;
+    background: transparent;
+
+    color: @foreground;
 }
+
+
+/* ============================================================
+   WORKSPACES ISLAND
+   ============================================================ */
+
+#workspaces {
+    margin: 4px 0 4px 8px;
+
+    padding: 0 3px;
+
+    background: @island-bg;
+
+    border: 1px solid @island-border;
+
+    border-radius: 8px;
+}
+
 
 #workspaces button {
-  padding: 3px;
-  margin: 7px 0px 7px 7px;
-  background: transparent;
-  border-radius: 2px;
-  color: white;
+    min-width: 20px;
+
+    padding: 0 5px;
+
+    margin: 2px 1px;
+
+    background: transparent;
+
+    color: @foreground-muted;
+
+    border-radius: 5px;
+
+    transition:
+        background 150ms ease,
+        color 150ms ease;
 }
+
+
+#workspaces button:hover {
+    background: @hover-bg;
+
+    color: @foreground;
+}
+
 
 #workspaces button.active {
-  background: @highlight;
-  color: black;
-  font-weight: 700;
+    background: @highlight;
+
+    color: #111111;
+
+    font-weight: 700;
 }
 
-#submap,
-#battery,
-#bluetooth,
-#network,
-#cpu,
-#memory,
-#volume {
-  border-radius: 8px;
-  padding: 5px 8px;
-  background: @dark-8;
-  margin: 5px 10px 5px 0px;
-}
 
-#submap,
 #workspaces button.urgent {
-  background: rgb(227, 150, 73);
-  color: black;
+    background: rgb(227, 150, 73);
+
+    color: #111111;
 }
+
+
+/* ============================================================
+   MEDIA
+   ============================================================ */
+
+#mpris {
+    margin: 4px 0 4px 8px;
+
+    padding: 0 10px;
+
+    background: @island-bg;
+
+    border: 1px solid @island-border;
+    border-radius: 8px;
+
+    color: @foreground;
+
+    transition:
+        background 150ms ease,
+        border-color 150ms ease;
+}
+
+
+#mpris:hover {
+    background: rgba(25, 25, 25, 0.36);
+
+    border-color: @island-border-hover;
+}
+
+
+#mpris.paused {
+    color: @foreground-muted;
+}
+
+/* ============================================================
+   CLOCK ISLAND
+   ============================================================ */
+
+#clock {
+    padding: 0 11px;
+
+    margin: 4px 0;
+
+    background: @island-bg;
+
+    color: @foreground;
+
+    border: 1px solid @island-border;
+
+    border-radius: 8px;
+
+    transition:
+        background 150ms ease,
+        border-color 150ms ease;
+}
+
+
+#clock:hover {
+    background: rgba(25, 25, 25, 0.36);
+
+    border-color: @island-border-hover;
+}
+
+
+/* ============================================================
+   SUBMAP
+   ============================================================ */
+
+#submap {
+    padding: 0 8px;
+
+    margin: 4px 3px;
+
+    background: rgb(227, 150, 73);
+
+    color: #111111;
+
+    border-radius: 8px;
+
+    font-weight: 700;
+}
+
+
+/* ============================================================
+   VOLUME ISLAND
+   ============================================================ */
+
+#volume {
+    padding: 0 9px;
+    margin: 4px 3px;
+
+    background: @island-bg;
+
+    border: 1px solid @island-border;
+    border-radius: 8px;
+
+    transition:
+        background 150ms ease,
+        border-color 150ms ease;
+}
+
+#volume:hover {
+    background: rgba(25, 25, 25, 0.36);
+    border-color: @island-border-hover;
+}
+
+/* ============================================================
+   PULSEAUDIO
+   ============================================================ */
+
+#pulseaudio {
+    padding: 0;
+
+    margin: 0;
+
+    color: @foreground;
+}
+
+
+/* ============================================================
+   VOLUME SLIDER
+   ============================================================ */
 
 #pulseaudio-slider {
-  padding: 0px;
-  margin: 0px;
-  margin-left: 8px;
+    padding: 0;
+
+    margin: 0 2px 0 8px;
 }
+
 
 #pulseaudio-slider slider {
-  all: unset;
-  min-height: 0;
-  min-width: 0;
-  opacity: 0;
-  background-image: none;
-  border: none;
-  box-shadow: none;
+    all: unset;
+
+    min-width: 0;
+    min-height: 0;
+
+    opacity: 0;
+
+    background: none;
+
+    border: none;
+
+    box-shadow: none;
 }
+
 
 #pulseaudio-slider trough {
-  min-height: 8px;
-  min-width: 75px;
-  border-radius: 5px;
-  background: @dark-7;
+    min-width: 76px;
+
+    min-height: 6px;
+
+    background: @slider-bg;
+
+    border-radius: 999px;
 }
+
 
 #pulseaudio-slider highlight {
-  background: @highlight;
-  border: none;
-  box-shadow: none;
+    min-height: 6px;
+
+    background: @highlight;
+
+    border-radius: 999px;
+
+    border: none;
+
+    box-shadow: none;
 }
 
-#media {
-  color: #42ff9f;
-  margin: 7px 0px 7px 80px;
+
+/* ============================================================
+   STATUS ISLAND
+   ============================================================ */
+
+#status {
+    margin: 4px 8px 4px 3px;
+
+    padding: 0 3px;
+
+    background: @island-bg;
+
+    border: 1px solid @island-border;
+
+    border-radius: 8px;
+
+    transition:
+        background 150ms ease,
+        border-color 150ms ease;
 }
 
-#custom-media-animation {
-  font-size: 13px;
-  margin-right: 10px;
+
+#status:hover {
+    background: rgba(25, 25, 25, 0.36);
+
+    border-color: @island-border-hover;
 }
 
-#custom-media-now-playing {
-  margin-right: 10px;
+
+/* ============================================================
+   STATUS MODULES
+   ============================================================ */
+
+#battery,
+#bluetooth,
+#network {
+    padding: 0 7px;
+
+    margin: 0;
+
+    background: transparent;
+
+    color: @foreground;
+
+    border-radius: 5px;
+
+    transition:
+        background 150ms ease,
+        color 150ms ease;
 }
 
-#custom-media-time {
-  color: @dark-5;
-  font-size: 14px;
+
+#battery:hover,
+#bluetooth:hover,
+#network:hover {
+    background: @hover-bg;
 }
+
+
+/* ============================================================
+   BATTERY STATES
+   ============================================================ */
+
+#battery.warning {
+    color: @warning;
+}
+
+
+#battery.critical {
+    color: @critical;
+}
+
+
+#battery.charging,
+#battery.plugged {
+    color: @charging;
+}
+
+
+/* ============================================================
+   TOOLTIPS
+   ============================================================ */
 
 tooltip {
-  background: @dark-9;
-  border-radius: 5px;
+    background: rgba(18, 18, 18, 0.94);
+
+    border: 1px solid rgba(255, 255, 255, 0.10);
+
+    border-radius: 8px;
 }
 
+
 tooltip label {
-  color: white;
+    padding: 4px;
+
+    color: @foreground;
 }

@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+LOG="$HOME/genshin-launch.log"
+
+exec >>"$LOG" 2>&1
+
+echo
+echo "========== $(date) =========="
+echo "PID=$$"
+echo "PATH=$PATH"
+echo "HOME=$HOME"
+echo "XDG_RUNTIME_DIR=${XDG_RUNTIME_DIR:-UNSET}"
+echo "WAYLAND_DISPLAY=${WAYLAND_DISPLAY:-UNSET}"
+echo "DISPLAY=${DISPLAY:-UNSET}"
+
+set -x
+
+PREFIX="$HOME/Games/hoyoplay"
+PROTON="$HOME/.local/share/Steam/steamapps/common/Proton 10.0"
+LAUNCHER="$PREFIX/drive_c/Program Files/HoYoPlay/launcher.exe"
+
+if [[ ! -f "$PROTON/proton" ]]; then
+    notify-send -u critical "Genshin Impact" "Không tìm thấy Proton 10.0"
+    exit 1
+fi
+
+if [[ ! -f "$LAUNCHER" ]]; then
+    notify-send -u critical "Genshin Impact" "Không tìm thấy HoYoPlay launcher"
+    exit 1
+fi
+
+exec env \
+    WINEPREFIX="$PREFIX" \
+    GAMEID=umu-default \
+    STORE=none \
+    PROTONPATH="$PROTON" \
+    umu-run "$LAUNCHER"
+
+exec env \
+    WINEPREFIX="$PREFIX" \
+    GAMEID=umu-default \
+    STORE=none \
+    PROTONPATH="$PROTON" \
+    UMU_LOG=1 \
+    /usr/bin/umu-run "$LAUNCHER"

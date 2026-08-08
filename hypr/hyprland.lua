@@ -23,13 +23,19 @@
 
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 hl.monitor({
-    output   = "HDMI-A-1",
-    mode     = "preferred",
-position = "1980x0",
-    scale    = "1",
-transform =2,
+    output = "DP-3",
+    mode = "1920x1080@75",
+    position = "0x0",
+    scale = 1,
 })
 
+hl.monitor({
+    output = "HDMI-A-1",
+    mode = "1920x1080@100",
+    position = "0x1080",
+    scale = 1,
+    transform = 2
+})
 
 ---------------------
 ---- MY PROGRAMS ----
@@ -37,8 +43,22 @@ transform =2,
 
 -- Set programs that you use
 local terminal    = "kitty"
-local fileManager = "thunar"
+local fileManager = "dolphin"
 local menu        = "fuzzel"
+local liveWallpaper =
+    "/home/3ty6six7/Pictures/Wallpapers/live/miyabi-looking-up-at-the-gray-sky-zenless-zone-zero-moewalls-com.mp4"
+local toggleWaybarCmd = [[
+    bash -lc '
+        if pgrep -x waybar >/dev/null; then
+            pkill -x waybar
+        else
+            waybar >/tmp/waybar.log 2>&1 &
+        fi
+    '
+]]
+local liveWallpaperCmd =
+    'mpvpaper ALL "' .. liveWallpaper ..
+    '" -o "no-audio loop-file=inf hwdec=auto"'
 local systemDashboard = [[
     bash -lc '
         # Không dựng cây Dwindle trước khi Waybar reserve màn hình
@@ -113,17 +133,23 @@ kitty --class sys-fastfetch --title Fastfetch \
 -- Or execute your favorite apps at launch like this:
 
 hl.on("hyprland.start", function()
+    -- Core session
     hl.exec_cmd("playerctld daemon")
     hl.exec_cmd("hyprctl setcursor Bibata-Morden-Ice 30")
     hl.exec_cmd("nm-applet")
     hl.exec_cmd("fcitx5")
+
+    -- Desktop
+    hl.exec_cmd(liveWallpaperCmd)
     hl.exec_cmd("waybar")
-    hl.exec_cmd("hyprpaper")
     hl.exec_cmd("dunst")
+
+    -- System
     hl.exec_cmd("/usr/lib/polkit-kde-authentication-agent-1")
     hl.exec_cmd("hypridle")
 
---    hl.exec_cmd("hyprlock")
+    -- Startup dashboard
+    -- hl.exec_cmd("hyprlock")
     hl.exec_cmd(systemDashboard)
 end)
 
@@ -405,7 +431,7 @@ hl.animation({
     enabled = true,
     speed = 1.35,
     bezier = "vs_swipe",
-    style = "slidefade 26%",
+    style = "slidefadevert 26%",
 })
 
 -- Scratchpad / special workspace gets its own premium motion.
@@ -486,8 +512,8 @@ hl.config({
 
 hl.config({
     misc = {
-        force_default_wallpaper = -1,    -- Set to 0 or 1 to disable the anime mascot wallpapers
-        disable_hyprland_logo   = false, -- If true disables the random hyprland logo / anime girl background. :(
+        force_default_wallpaper = 0,
+        disable_hyprland_logo   = true,
     },
 })
 
@@ -557,6 +583,7 @@ hl.bind(mainMod .. " + F", hl.dsp.exec_cmd("firefox"))
 hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd('kitty zsh -c "yazi; exec zsh"'))
 hl.bind(mainMod .. " + Z", hl.dsp.exec_cmd('kitty zsh -c "genact; exec zsh"'))
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(toggleWaybarCmd))
 
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd(systemDashboard), {
     description = "Open tiled terminal dashboard",
@@ -734,4 +761,27 @@ hl.window_rule({
     },
 })
 
+-- LocalSend glass
+hl.window_rule({
+    name = "localsend-glass",
+    match = {
+        class = "localsend",
+    },
+
+    opacity = "0.90 override 0.84 override 1.0 override",
+    xray = true,
+    rounding = 10,
+
+    border_color = {
+        colors = {
+            "rgba(c80000d9)",
+            "rgba(ff9600d9)",
+        },
+        angle = 45,
+    },
+})
+
+-- NVIDIA
+hl.env("LIBVA_DRIVER_NAME", "nvidia")
+hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 

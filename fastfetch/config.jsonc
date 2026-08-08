@@ -88,7 +88,7 @@
         {
             "type": "cpu",
             "key": " CPU",
-            "format": "Intel Core i3-2350M"
+            "format": "Intel Core i7-14700K"
         },
         {
             "type": "memory",

@@ -1,0 +1,13 @@
+cbonsai
+lavat
+localsend-bin
+mpvpaper
+nodejs-mapscii
+paru
+paru-debug
+peaclock
+proton-cachyos-slr
+protonplus
+spotify
+yay
+yay-debug
