@@ -140,7 +140,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("fcitx5")
 
     -- Desktop
-    hl.exec_cmd(liveWallpaperCmd)
+    -- hl.exec_cmd(liveWallpaperCmd)
+    hl.exec_cmd("hyprpaper")
     hl.exec_cmd("waybar")
     hl.exec_cmd("dunst")
 
@@ -698,13 +699,22 @@ hl.window_rule({
 ----------------------------------
 
 hl.window_rule({
-  match = { class = "thunar" },
-  opacity = "0.92 override 0.88 override",
-  rounding = 10,
-  border_color = {
-    colors = { "rgba(c80000d9)", "rgba(ff9600d9)" },
-    angle = 45
-  }
+    name = "dolphin-glass",
+    match = {
+        class = "^(org.kde.dolphin|dolphin)$",
+    },
+
+    opacity = "0.92 override 0.86 override 1.0 override",
+    xray = true,
+    rounding = 10,
+
+    border_color = {
+        colors = {
+            "rgba(c80000d9)",
+            "rgba(ff9600d9)",
+        },
+        angle = 45,
+    },
 })
 
 hl.layer_rule({
