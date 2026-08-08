@@ -4,3 +4,12 @@ ShowDeleteCommand=false
 [PreviewSettings]
 EnableRemoteFolderThumbnail=false
 MaximumRemoteSize=0
+
+[General]
+font=Inter,10,-1,5,50,0,0,0,0,0
+menuFont=Inter,10,-1,5,50,0,0,0,0,0
+smallestReadableFont=Inter,9,-1,5,50,0,0,0,0,0
+toolBarFont=Inter,10,-1,5,50,0,0,0,0,0
+
+[WM]
+activeFont=Inter SemiBold,10,-1,5,57,0,0,0,0,0
