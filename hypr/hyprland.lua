@@ -558,7 +558,7 @@ hl.window_rule({
     },
 
     float = true,
-    size = "700 700",
+    size = "650 650",
     move = "calc(50% - 350) calc(50% - 350)",
 })
 
