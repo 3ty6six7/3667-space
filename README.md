@@ -17,7 +17,9 @@ Personal Arch Linux desktop configuration for a Hyprland-based Wayland setup.
 
 | Desktop | Lock screen |
 | --- | --- |
-| ![Desktop preview](Pictures/Screenshots/2026-09-15_14-47-34.png) | ![Lock screen preview](Pictures/Screenshots/2026-08-08_21-28-36.png) |
+| ![Desktop preview](Pictures/Screenshots/2026-09-15_14-47-34.png) | ![Lock screen preview](Pictures/Screenshots/hyprlock-preview.png) |
+
+Both previews are captured at **1366 × 768**.
 
 ## Requirements
 
