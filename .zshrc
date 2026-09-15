@@ -45,3 +45,4 @@ eval "$(starship init zsh)"
 # KEEP THIS NEAR THE END
 # ------------------------------
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+export PATH="$HOME/.local/npm/bin:$PATH"
